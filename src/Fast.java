@@ -50,10 +50,10 @@ public class Fast {
     
     private static void processLinePoints(Point[] a, int first, int last, int pivot)
     {
-        Arrays.sort(a,first,last+1);
+        Arrays.sort(a, first, last + 1);
         a[pivot].drawTo(a[last]);
-        StdOut.print(a[pivot].toString() +" -> ");
-        for (int i = first; i<last; i++)
+        StdOut.print(a[pivot].toString() + " -> ");
+        for (int i = first; i < last; i++)
         {
             StdOut.print(a[i].toString() + " -> ");
         }

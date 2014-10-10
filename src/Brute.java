@@ -25,7 +25,7 @@ public class Brute {
                     {
                         if (a[i].slopeTo(a[j]) == a[i].slopeTo(a[k])
                             && a[i].slopeTo(a[k]) == a[i].slopeTo(a[l])
-                            && a[k].slopeTo(a[j])==a[k].slopeTo(a[l]))
+                            && a[k].slopeTo(a[j]) == a[k].slopeTo(a[l]))
                         {
                             linePoints[0] = a[i];
                             linePoints[1] = a[j];
