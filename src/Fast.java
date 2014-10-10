@@ -2,7 +2,7 @@ import java.util.Arrays;
 public class Fast {
     public static void main(String[] args)
     {
-        String filePath = StdIn.readString();
+        String filePath = args[0];
         In fileInput = new In(filePath);
         int N = fileInput.readInt();
         Point[] a = new Point[N];
@@ -19,32 +19,40 @@ public class Fast {
             a[i] = new Point(x, y);
             a[i].draw();
         }       
-        Quick.sort(a);
-        for (int i = 0; i < N; i++)
+        for (int i = 0; i < N - 1; i++)
         {
+            Arrays.sort(a, i, N);
             Arrays.sort(a, i, N, a[i].SLOPE_ORDER);
-            for (int j = i + 1; j < N; j++)
+            lineSlope = a[i].slopeTo(a[i+1]);
+            lineSeqCount = 2;
+            for (int j = i + 2; j < N; j++)
             {
-                if (lineSeqCount > 0)
+                if (a[i].slopeTo(a[j]) == lineSlope)
                 {
-                    if (a[i].slopeTo(a[j]) == lineSlope )
-                    {
-                        lineSeqCount+=1;
-                    }
-                    else
-                    {
-                        
-                    }
+                    lineSeqCount += 1;
                 }
-                
+                else
+                {
+                    lineSlope = a[i].slopeTo(a[j]);
+                    if (lineSeqCount >= 4)
+                    {
+                        processLinePoints(a, j + 1 - lineSeqCount, j - 1, i);
+                    }
+                    lineSeqCount = 2;
+                }
+            }
+            if (lineSeqCount >= 4)
+            {
+                processLinePoints(a, N + 1 - lineSeqCount, N-1, i);
             }
         }
-        
     }
     
-    private void processLinePoints(Point[] a, int first, int last)
+    private static void processLinePoints(Point[] a, int first, int last, int pivot)
     {
-        a[first].drawTo(a[last]);
+        Arrays.sort(a,first,last+1);
+        a[pivot].drawTo(a[last]);
+        StdOut.print(a[pivot].toString() +" -> ");
         for (int i = first; i<last; i++)
         {
             StdOut.print(a[i].toString() + " -> ");
